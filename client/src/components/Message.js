@@ -1,23 +1,39 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function Message({msg}) {
+function Message({ msg }) {
+  const [visible, setVisible] = useState(true);
+
+  const handleClose = () => {
+    setVisible(false);
+  };
+
   return (
-    <div className='alert alert-info alert-dismissible fade show fade show' role='alert'>
-        {msg}
-    <div
-       type='button'
-       className='close'
-       data-dismiss='alert'
-       aria-label='close'>
-        {/* <span aria-hidden='true'>$times;</span> */}
-    </div>
-    </div>
-  )
+    <>
+      {visible && (
+        <div className='alert alert-info alert-dismissible fade show d-flex' role='alert'>
+          <div className='flex-grow-1'>{msg}</div>
+          <button
+            type='button'
+            className='close'
+            onClick={handleClose}
+            aria-label='Close'
+            style={{
+              position: 'block',
+              background: 'none',
+              border: 'none',
+              color: '#2B5F6D'
+            }}>
+            <span aria-hidden='true'>&times;</span>
+          </button>
+        </div>
+      )}
+    </>
+  );
 }
 
 Message.propTypes = {
-    msg: PropTypes.string.isRequired
-}
+  msg: PropTypes.string.isRequired,
+};
 
-export default Message
+export default Message;
